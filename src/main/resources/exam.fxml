@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ExamController">
+    <Label style="-fx-font-size: 35" fx:id="titleLabel" prefWidth="Infinity" alignment="BASELINE_CENTER">
+        <VBox.margin>
+            <Insets top="20"/>
+        </VBox.margin>
+    </Label>
+    <HBox>
+        <Label style="-fx-font-size: 25" prefWidth="200">
+            <HBox.margin>
+                <Insets top="20" left="20" right="10"/>
+            </HBox.margin>
+            Student Email
+        </Label>
+        <TextField prefWidth="300" fx:id="studentEmailField" focusTraversable="false" onAction="#updateExamStudentEmail">
+                <HBox.margin>
+                    <Insets top="20" left="10"/>
+                </HBox.margin>
+        </TextField>
+    </HBox>
+    <HBox>
+        <Label style="-fx-font-size: 25" prefWidth="200">
+            <HBox.margin>
+                <Insets top="20" left="20" right="10"/>
+            </HBox.margin>
+            Teacher Email
+        </Label>
+        <TextField prefWidth="300" fx:id="teacherEmailField" focusTraversable="false" onZoomFinished="#updateExamTeacherEmail">
+            <HBox.margin>
+                <Insets top="20" left="10"/>
+            </HBox.margin>
+        </TextField>
+    </HBox>
+    <HBox>
+        <Label style="-fx-font-size: 25" prefWidth="200">
+            <HBox.margin>
+                <Insets top="20" left="20" right="10"/>
+            </HBox.margin>
+            Subject
+        </Label>
+        <Label prefWidth="300" fx:id="examSubjectTypeName" style="-fx-font-size: 25">
+            <HBox.margin>
+                <Insets top="20" left="10"/>
+            </HBox.margin>
+        </Label>
+    </HBox>
+    <HBox>
+        <Label style="-fx-font-size: 25" prefWidth="200">
+            <HBox.margin>
+                <Insets top="20" left="20" right="10"/>
+            </HBox.margin>
+            Date
+        </Label>
+        <TextField prefWidth="300" fx:id="examDateField" focusTraversable="false" onZoomFinished="#updateExamDate">
+            <HBox.margin>
+                <Insets top="20" left="10"/>
+            </HBox.margin>
+        </TextField>
+    </HBox>
+    <HBox>
+        <Label style="-fx-font-size: 25" prefWidth="200">
+            <HBox.margin>
+                <Insets top="20" left="20" right="10"/>
+            </HBox.margin>
+            Total Score
+        </Label>
+        <Label prefWidth="300" fx:id="examTotalScoreLabel" style="-fx-font-size: 25">
+            <HBox.margin>
+                <Insets top="20" left="10"/>
+            </HBox.margin>
+        </Label>
+    </HBox>
+    <GridPane hgap="10" gridLinesVisible="true" fx:id="scoresGridPane">
+        <VBox.margin>
+            <Insets left="20" top="20" right="20"/>
+        </VBox.margin>
+    </GridPane>
+    <HBox spacing="20">
+        <Button text="Update" fx:id="updateButton" onAction="#updateExamInServer"/>
+        <Button text="Delete" fx:id="deleteButton" onAction="#deleteExamInServer"/>
+    </HBox>
+</VBox>

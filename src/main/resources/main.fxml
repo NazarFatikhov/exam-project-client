@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
-<VBox fx:id="mainPane" fx:controller="sample.Controller" style="-fx-border-color: black"
+<VBox fx:id="mainPane" fx:controller="controllers.MainController"
       xmlns:fx="http://javafx.com/fxml">
     <AnchorPane>
     <HBox AnchorPane.leftAnchor="10" AnchorPane.bottomAnchor="20">
@@ -37,6 +37,7 @@
             <TableColumn fx:id="subjectTypeName" text="Subject"/>
             <TableColumn fx:id="date" text="Date"/>
             <TableColumn fx:id="score" text="Score"/>
+            <TableColumn fx:id="editButton"/>
         </columns>
     </TableView>
 </VBox>

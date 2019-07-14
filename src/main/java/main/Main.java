@@ -1,27 +1,23 @@
 package main;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.swing.text.TabableView;
-import javax.swing.text.TableView;
-import java.awt.event.ActionEvent;
-
 public class Main extends Application {
+
+    private static final double NORMAL_WINDOW_WIDTH = 820;
+    private static final double NORMAL_WINDOW_HEIGHT = 634;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Exam (Admin)");
-        primaryStage.setScene(new Scene(root, 700, 600));
-        primaryStage.setMinWidth(734);
-        primaryStage.setMinHeight(664);
+        primaryStage.setScene(new Scene(root, NORMAL_WINDOW_HEIGHT, NORMAL_WINDOW_WIDTH));
+        primaryStage.setMinWidth(NORMAL_WINDOW_WIDTH);
+        primaryStage.setMinHeight(NORMAL_WINDOW_HEIGHT);
         primaryStage.show();
     }
 

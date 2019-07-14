@@ -1,28 +1,28 @@
-package sample;
+package controllers;
 
-import com.google.gson.*;
-import dto.Exam;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import models.EditButton;
+import models.Exam;
 import services.ExamMapper;
 import services.HttpUrlConnection;
 
-import javax.annotation.Resources;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-public class Controller {
+public class MainController {
+
+    private static final double NORMAL_WINDOW_WIDTH = 734;
+    private static final double NORMAL_WINDOW_HEIGHT = 634;
 
     @FXML
     private VBox mainPane;
@@ -37,6 +37,8 @@ public class Controller {
     private TableColumn<Exam, String> score;
     @FXML
     private TableColumn<Exam, String> studentEmail;
+    @FXML
+    private TableColumn<Exam, EditButton> editButton;
 
     @FXML
     private TableView<Exam> examsTable;
@@ -47,7 +49,7 @@ public class Controller {
     }
 
     @FXML
-    private List<String> updateExamsFromServer(){
+    public List<String> updateExamsFromServer(){
         try {
             examsTable.getItems().clear();
 
@@ -59,11 +61,31 @@ public class Controller {
             ExamMapper examMapper = new ExamMapper();
             List<Exam> exams = examMapper.mapList(array);
 
+            for(Exam exam : exams){
+                exam.getEditButton().setOnAction((event -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/exam.fxml"));
+                        Parent root = loader.load();
+                        ExamController examController = loader.getController();
+                        examController.initDate(exam);
+                        Stage stage = new Stage();
+                        stage.setTitle("Exam # " + exam.getId());
+                        stage.setScene(new Scene(root, NORMAL_WINDOW_HEIGHT, NORMAL_WINDOW_WIDTH));
+                        stage.setMinWidth(NORMAL_WINDOW_WIDTH);
+                        stage.setMinHeight(NORMAL_WINDOW_HEIGHT);
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }));
+            }
+
             studentEmail.setCellValueFactory(new PropertyValueFactory<Exam, String>("studentEmail"));
             studentNameAndSurname.setCellValueFactory(new PropertyValueFactory<Exam, String>("studentNameAndSurname"));
             subjectTypeName.setCellValueFactory(new PropertyValueFactory<Exam, String>("subjectTypeName"));
             date.setCellValueFactory(new PropertyValueFactory<Exam, String>("date"));
             score.setCellValueFactory(new PropertyValueFactory<Exam, String>("totalScore"));
+            editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
 
             examsTable.getItems().addAll(exams);
 
